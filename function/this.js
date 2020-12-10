@@ -74,8 +74,8 @@ obj.func();
 console.log("-this in arrow notation------------------------");
 // 箭头函数中的this,谁创建的箭头函数，指向谁（不改变）
 var obj2 = {
-  say: function () {
-    var f1 = function () {
+  say: () => {
+    var f1 = () => {
       console.log(this === globalThis); // obj2
       setTimeout(() => {
         console.log(this); // obj2

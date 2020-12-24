@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./debounce.js"></script>
+  </head>
+  <body>
+    <button id="debounce">debounce</button>
+    <button id="callnow">callnow</button>
+    <div id="trigger"></div>
+  </body>
+  <script>
+    var counter = 0;
+    function triggerDebounce() {
+      counter++;
+      console.log("counter", counter);
+      document.getElementById("trigger").innerHTML = counter;
+    }
+    var button = document.getElementById("debounce");
+    var button2 = document.getElementById("callnow");
+    function triggerCallNow() {
+      debounce(triggerDebounce, 1000, true);
+    }
+    // 注意调用姿势
+    button.onclick = debounce(triggerDebounce, 1000);
+    button2.addEventListener('click', triggerCallNow);
+  </script>
+</html>

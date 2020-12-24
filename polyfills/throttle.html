@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Throttle</title>
+    <script src="./throttle.js"></script>
+  </head>
+  <body>
+    <button id="throttle">throttle</button>
+    <div id="trigger"></div>
+  </body>
+  <script>
+    var counter = 0;
+    function triggerFn() {
+      var target = document.getElementById('trigger');
+      counter ++;
+      target.innerHTML = counter;
+    }
+    var button = document.getElementById("throttle");
+    button.onclick = throttle(triggerFn, 3000)
+  </script>
+</html>

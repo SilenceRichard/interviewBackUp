@@ -22,22 +22,21 @@ function subCurry(fn) {
  * function 
  */
 function curry(fn, args) {
+    // 实际的形参数
     var length = fn.length;
     args = args || [];
     return function () {
         var _args = args.slice(0);
-        for (var i = 0; i < arguments.length; i++) {
+        for (var i = 0; i< arguments.length; i ++) {
             var arg = arguments[i];
             _args.push(arg);
         }
         if (_args.length < length) {
-            return curry.call(this, fn, _args)
-        } else {
-            return fn.apply(this, _args);
+           return curry.call(this, fn, _args);
         }
+        return fn.apply(this, _args);
     }
 }
-
 
 function add(a, b, c, d) {
     return a + b + c + d;

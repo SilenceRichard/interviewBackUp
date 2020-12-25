@@ -5,32 +5,43 @@
  * var addCurry = curry(add);
  * addCurry(1)(2) // 3 === add(1,2)
  */
- function sub_curry(fn) {
-  var args = [].slice.call(arguments, 1);
-  return function() {
-      return fn.apply(this, args.concat([].slice.call(arguments)));
-  };
+/**
+ * 对于两次调用情况的curry
+ */
+function subCurry(fn) {
+    var args = Array.prototype.slice.call(arguments, 1);
+    return function () {
+        var newArgs = [].slice.call(arguments).concat(args);
+        return fn.apply(this, args.concat(newArgs))
+    }
 }
 
-function curry(fn, length) {
-
-  length = length || fn.length;
-
-  var slice = Array.prototype.slice;
-
-  return function() {
-      if (arguments.length < length) {
-          var combined = [fn].concat(slice.call(arguments));
-          return curry(sub_curry.apply(this, combined), length - arguments.length);
-      } else {
-          return fn.apply(this, arguments);
-      }
-  };
+/**
+ * 这里补充一个知识点： curry(fn) {console.log(fn.length)}
+ * 函数的length属性为其参数的长度
+ * function 
+ */
+function curry(fn, args) {
+    var length = fn.length;
+    args = args || [];
+    return function () {
+        var _args = args.slice(0);
+        for (var i = 0; i < arguments.length; i++) {
+            var arg = arguments[i];
+            _args.push(arg);
+        }
+        if (_args.length < length) {
+            return curry.call(this, fn, _args)
+        } else {
+            return fn.apply(this, _args);
+        }
+    }
 }
 
-//  function add(a, b) {
-//    return a + b;
-//  }
 
-//  var addCurry = subCurry(add, 1);
-//  console.log(addCurry(2));
+function add(a, b, c, d) {
+    return a + b + c + d;
+}
+var addCurry = curry(add);
+ // 3 === add(1,2)
+console.log(addCurry(1,2)(3)(4));

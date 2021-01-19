@@ -10,7 +10,7 @@ class MyPromise {
     this.reason = null;
     this.resolveArr = [];
     this.rejectArr = [];
-    callback
+    callback(this.resolve, this.reject)
   }
   resolve = (value) => {
     // 
